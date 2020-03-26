@@ -7,8 +7,7 @@ const Navbar = ({ title, icon }) => {
   return (
     <div className="navbar bg-primary">
       <h1>
-        <i className={icon} />
-        {title}
+        <i className={icon} /> {title}
       </h1>
       <ul>
         <li>
@@ -29,7 +28,7 @@ Navbar.propType = {
 
 Navbar.defaultProps = {
   title: "B&R Filmes",
-  icon: "fas fa-id-card-alt"
+  icon: "fas fa-film"
 };
 
 export default Navbar;
