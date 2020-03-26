@@ -58,15 +58,53 @@ router.post(
 //@route    PUT api/lists/:id
 //@desc     Update list
 //@access   Public
-router.put("/:id", (req, res) => {
-  res.send("Update list");
+router.put("/:id", async (req, res) => {
+  const { name, movies } = req.body;
+
+  //Build contact object
+  const listFields = {};
+  if (name) {
+    listFields.name = name;
+  }
+  if (movies) {
+    listFields.movies = movies;
+  }
+
+  try {
+    let list = await List.findById(req.params.id);
+
+    if (!list) {
+      return res.status(404).json({ msg: "List not found." });
+    }
+
+    list = await List.findByIdAndUpdate(
+      req.params.id,
+      { $set: listFields },
+      { new: true }
+    );
+
+    return res.json(list);
+  } catch (error) {
+    returnError(error, res);
+  }
 });
 
 //@route    DELETE api/lists/:id
 //@desc     Delete list
 //@access   Public
-router.delete("/:id", (req, res) => {
-  res.send("Delete list");
+router.delete("/:id", async (req, res) => {
+  try {
+    let list = await List.findById(req.params.id);
+
+    if (!list) {
+      return res.status(404).json({ msg: "List not found." });
+    }
+
+    await List.findByIdAndRemove(req.params.id);
+    return res.json({ msg: "List removed." });
+  } catch (error) {
+    returnError(error, res);
+  }
 });
 
 module.exports = router;
