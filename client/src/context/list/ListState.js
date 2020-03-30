@@ -1,6 +1,5 @@
 import React, { useReducer } from "react";
-
-import { v4 as uuidv4 } from "uuid";
+import axios from "axios";
 
 import ListContext from "./listContext";
 import listReducer from "./listReducer";
@@ -13,44 +12,84 @@ import {
   UPDATE_LIST,
   FILTER_LIST,
   CLEAR_FILTER,
-  SET_ALERT,
-  REMOVE_ALERT
+  LIST_ERROR,
+  GET_LISTS,
+  CLEAR_LISTS,
+  SET_LOADING
 } from "../types";
 
 const ListState = props => {
   const initialState = {
-    lists: [
-      {
-        id: 1,
-        name: "Lista 1",
-        movies: [
-          { id: 999, name: "Filme 999" },
-          { id: 998, name: "Filme 998" }
-        ]
-      },
-      { id: 2, name: "Lista 2", movies: [] }
-    ],
+    lists: null,
     current: null,
-    filtered: null
+    filtered: null,
+    error: null,
+    loading: false
   };
 
   const [state, dispatch] = useReducer(listReducer, initialState);
 
-  //Add List
-  const addList = list => {
-    list.id = uuidv4();
+  const config = {
+    headers: {
+      "Content-Type": "application/json"
+    }
+  };
+
+  const setLoading = () => {
     dispatch({
-      type: ADD_LIST,
-      payload: list
+      type: SET_LOADING
     });
   };
 
+  //Get Lists
+  const getLists = async () => {
+    setLoading();
+    try {
+      const res = await axios.get("/api/lists");
+      dispatch({
+        type: GET_LISTS,
+        payload: res.data
+      });
+    } catch (error) {
+      dispatch({
+        type: LIST_ERROR,
+        payload: error.response.msg
+      });
+    }
+  };
+
+  //Add List
+  const addList = async list => {
+    setLoading();
+    try {
+      const res = await axios.post("/api/lists", list, config);
+      dispatch({
+        type: ADD_LIST,
+        payload: res.data
+      });
+    } catch (error) {
+      dispatch({
+        type: LIST_ERROR,
+        payload: error.response.msg
+      });
+    }
+  };
+
   //Delete List
-  const deleteList = id => {
-    dispatch({
-      type: DELETE_LIST,
-      payload: id
-    });
+  const deleteList = async id => {
+    setLoading();
+    try {
+      await axios.delete(`/api/lists/${id}`);
+      dispatch({
+        type: DELETE_LIST,
+        payload: id
+      });
+    } catch (error) {
+      dispatch({
+        type: LIST_ERROR,
+        payload: error.response.msg
+      });
+    }
   };
 
   //Set current List
@@ -68,15 +107,27 @@ const ListState = props => {
   };
 
   //Update List
-  const updateList = list => {
-    dispatch({
-      type: UPDATE_LIST,
-      payload: list
-    });
+  const updateList = async list => {
+    setLoading();
+
+    try {
+      const res = await axios.put(`/api/lists/${list._id}`, list, config);
+      dispatch({
+        type: UPDATE_LIST,
+        payload: res.data
+      });
+    } catch (error) {
+      dispatch({
+        type: LIST_ERROR,
+        payload: error.response.msg
+      });
+    }
   };
 
   //Filter Lists
   const filterLists = text => {
+    setLoading();
+
     dispatch({
       type: FILTER_LIST,
       payload: text
@@ -90,19 +141,31 @@ const ListState = props => {
     });
   };
 
+  //Clear Lists
+  const clearLists = () => {
+    dispatch({
+      type: CLEAR_LISTS
+    });
+  };
+
   return (
     <ListContext.Provider
       value={{
         lists: state.lists,
         current: state.current,
         filtered: state.filtered,
+        error: state.error,
+        loading: state.loading,
+        getLists,
         addList,
         deleteList,
         setCurrent,
         clearCurrent,
         updateList,
         filterLists,
-        clearFilter
+        clearFilter,
+        setLoading,
+        clearLists
       }}
     >
       {props.children}

@@ -6,8 +6,10 @@ import {
   UPDATE_LIST,
   FILTER_LIST,
   CLEAR_FILTER,
-  SET_ALERT,
-  REMOVE_ALERT
+  LIST_ERROR,
+  GET_LISTS,
+  CLEAR_LISTS,
+  SET_LOADING
 } from "../types";
 
 export default (state, action) => {
@@ -16,12 +18,14 @@ export default (state, action) => {
     case ADD_LIST:
       return {
         ...state,
-        lists: [...state.lists, payload]
+        lists: [payload, ...state.lists],
+        loading: false
       };
     case DELETE_LIST:
       return {
         ...state,
-        lists: state.lists.filter(l => l.id !== payload)
+        lists: state.lists.filter(l => l._id !== payload),
+        loading: false
       };
     case SET_CURRENT:
       return {
@@ -36,7 +40,8 @@ export default (state, action) => {
     case UPDATE_LIST:
       return {
         ...state,
-        lists: state.lists.map(l => (l.id === payload.id ? payload : l))
+        lists: state.lists.map(l => (l._id === payload._id ? payload : l)),
+        loading: false
       };
     case FILTER_LIST:
       return {
@@ -44,12 +49,37 @@ export default (state, action) => {
         filtered: state.lists.filter(l => {
           const regex = new RegExp(`${payload}`, "gi");
           return l.name.match(regex);
-        })
+        }),
+        loading: false
       };
     case CLEAR_FILTER:
       return {
         ...state,
         filtered: null
+      };
+    case LIST_ERROR:
+      return {
+        ...state,
+        error: payload
+      };
+    case GET_LISTS:
+      return {
+        ...state,
+        lists: payload,
+        loading: false
+      };
+    case SET_LOADING:
+      return {
+        ...state,
+        loading: true
+      };
+    case CLEAR_LISTS:
+      return {
+        ...state,
+        lists: null,
+        filtered: null,
+        error: null,
+        current: null
       };
     default:
       return state;

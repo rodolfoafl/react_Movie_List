@@ -1,10 +1,14 @@
 import React, { useState, useContext, useEffect } from "react";
 
 import ListContext from "../../context/list/listContext";
+import AlertContext from "../../context/alert/alertContext";
 
 const ListForm = () => {
   const listContext = useContext(ListContext);
   const { addList, current, clearCurrent, updateList } = listContext;
+
+  const alertContext = useContext(AlertContext);
+  const { setAlert } = alertContext;
 
   const [list, setList] = useState({
     name: "",
@@ -31,8 +35,10 @@ const ListForm = () => {
   const onSubmit = e => {
     e.preventDefault();
     if (current === null) {
+      setAlert("Lista criada com sucesso!", "success");
       addList(list);
     } else {
+      setAlert("Lista atualizada com sucesso!", "success");
       updateList(list);
     }
     clearAll();

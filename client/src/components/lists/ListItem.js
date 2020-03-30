@@ -7,11 +7,11 @@ const ListItem = ({ list }) => {
   const listContext = useContext(ListContext);
   const { deleteList, setCurrent, clearCurrent } = listContext;
 
-  const { id, name, movies } = list;
+  const { _id, name, movies } = list;
 
   const onDelete = () => {
     clearCurrent();
-    deleteList(id);
+    deleteList(_id);
   };
 
   return (
