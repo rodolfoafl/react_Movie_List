@@ -5,7 +5,8 @@ import "./App.css";
 
 import Navbar from "./components/layout/Navbar";
 import Home from "./components/pages/Home";
-import About from "./components/pages/About";
+// import About from "./components/pages/About";
+import Movies from "./components/pages/Movies";
 import Alerts from "./components/layout/Alerts";
 
 import ListState from "./context/list/ListState";
@@ -22,7 +23,8 @@ const App = () => {
               <Alerts />
               <Switch>
                 <Route exact path="/" component={Home} />
-                <Route exact path="/about" component={About} />
+                {/* <Route exact path="/about" component={About} /> */}
+                <Route exact path="/filmes" component={Movies} />
               </Switch>
             </div>
           </Fragment>
