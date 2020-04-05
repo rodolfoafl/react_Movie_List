@@ -1,5 +1,7 @@
-import React, { Fragment, useEffect } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import axios from "axios";
+
+import MovieItem from "../layout/MovieItem";
 
 const Movies = () => {
   let listMovies = null;
@@ -9,14 +11,14 @@ const Movies = () => {
     //eslist-disable-next-line
   }, []);
 
-  const movieSelected = id => {
+  const movieSelected = (id) => {
     let movieId = sessionStorage.getItem("movieId");
 
     let selectedMovie = document.querySelector("#movie");
 
     axios
       .get(`http://www.omdbapi.com/?i=${movieId}&apikey=3f85b66e`)
-      .then(res => {
+      .then((res) => {
         let movie = res.data;
 
         let output = `
@@ -50,43 +52,27 @@ const Movies = () => {
 
         selectedMovie.innerHTML = output;
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err);
       });
   };
 
-  const getMovies = text => {
+  const [movies, setMovies] = useState(null);
+
+  const getMovies = (text) => {
     console.log(text);
     axios
       .get(`http://www.omdbapi.com/?s=${text}&apikey=3f85b66e`)
-      .then(res => {
+      .then((res) => {
         // console.log(res);
-        let movies = res.data.Search;
-        let output = "";
-
-        movies.forEach(movie => {
-          let poster = "./img/default-movie.png";
-          if (movie.Poster !== "N/A") {
-            poster = movie.Poster;
-          }
-
-          output += `<div classNameName="movies-container">
-            <div classNameName="well text-center">
-                <img src="${poster}">
-                <h5>${movie.Title}</h5>
-                <a onclick="movieSelected('${movie.imdbID}')" classNameName="btn btn-primary" href="#">Movie Details</a>
-            </div>
-          </div>`;
-        });
-
-        listMovies.innerHTML = output;
+        setMovies(res.data.Search.filter((m) => m.Type === "movie"));
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err);
       });
   };
 
-  const onSubmit = e => {
+  const onSubmit = (e) => {
     e.preventDefault();
     let inputValue = document.querySelector("#searchText").value;
     getMovies(inputValue);
@@ -94,20 +80,25 @@ const Movies = () => {
 
   return (
     <Fragment>
-      <div classNameName="container">
-        <h3 classNameName="text-center">Procurar Filmes</h3>
-        <form id="searchForm" onSubmit={e => onSubmit(e)}>
+      <div className="container">
+        <h3 className="text-center">Procurar Filmes</h3>
+        <form id="searchForm" onSubmit={(e) => onSubmit(e)}>
           <input
             type="text"
-            classNameName="form-control"
+            className="form-control"
             id="searchText"
             placeholder="Filme..."
           ></input>
         </form>
       </div>
 
-      <div classNameName="container my-1">
-        <div id="movies" classNameName="grid-4"></div>
+      <div className="container my-1">
+        <div id="movies" className="grid-3">
+          {movies !== null &&
+            movies.map((movie) => (
+              <MovieItem key={movie.imdbID} movie={movie} />
+            ))}
+        </div>
       </div>
     </Fragment>
   );

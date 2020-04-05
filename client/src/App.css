@@ -36,8 +36,49 @@ ul {
   list-style: none;
 }
 
-img {
+/* img {
   width: 100%;
+} */
+
+/* @media (min-width: 960px) {
+  .well {
+    height: 390px;
+  }
+
+  .well-image {
+    height: 240px;
+  }
+} */
+
+.well {
+  height: 490px;
+  margin-top: 2rem;
+}
+
+.image-container {
+  height: 70%;
+}
+
+.well-image {
+  height: 100%;
+  max-width: 90%;
+}
+
+.well-title {
+  display: flex;
+  height: 15%;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  margin-top: 0.5rem;
+}
+.well-button {
+  display: flex;
+  height: 15%;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  margin-top: 0.5rem;
 }
 
 /* Utilities */
@@ -76,10 +117,6 @@ img {
 
 .text-dark {
   color: var(--dark-color);
-}
-
-.text-center {
-  text-align: center;
 }
 
 .text-right {
