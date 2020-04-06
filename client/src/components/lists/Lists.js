@@ -26,8 +26,8 @@ const Lists = () => {
         // <TransitionGroup>
         <Fragment>
           {filtered !== null
-            ? filtered.map(l => <ListItem list={l} />)
-            : lists.map(l => <ListItem list={l} />)}
+            ? filtered.map((l) => <ListItem key={l._id} list={l} />)
+            : lists.map((l) => <ListItem key={l._id} list={l} />)}
           {/* </TransitionGroup> */}
         </Fragment>
       ) : (

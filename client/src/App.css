@@ -2,9 +2,9 @@
 
 /* Global Styles */
 :root {
-  --primary-color: #003699;
+  --primary-color: aquamarine;
   --dark-color: #333333;
-  --light-color: #f4f4f4;
+  --light-color: #fff;
   --danger-color: #dc3545;
   --success-color: #28a745;
 }
@@ -19,8 +19,10 @@ body {
   font-family: "Roboto", sans-serif;
   font-size: 1rem;
   line-height: 1.6;
-  background-color: #fff;
-  color: #333;
+  background-color: var(--dark-color);
+  /* background-color: #fff; */
+  /* color: #333; */
+  color: var(--light-color);
 }
 
 a {
@@ -29,7 +31,9 @@ a {
 }
 
 a:hover {
-  color: #666;
+  /* color: #666; */
+  background: var(--light-color);
+  color: var(--dark-color);
 }
 
 ul {
@@ -228,7 +232,7 @@ ul {
   font-size: 1rem;
   border: none;
   cursor: pointer;
-  margin-right: 0.5rem;
+  /* margin-right: 0.5rem; */
   transition: opacity 0.2s ease-in;
   outline: none;
 }
@@ -273,7 +277,8 @@ ul {
 .badge-primary,
 .alert-primary {
   background: var(--primary-color);
-  color: #fff;
+  /* color: #fff; */
+  color: var(--dark-color);
 }
 
 .btn-light,
@@ -289,7 +294,8 @@ ul {
 .badge-dark,
 .alert-dark {
   background: var(--dark-color);
-  color: #fff;
+  /* color: #fff; */
+  color: var(--light-color);
 }
 
 .btn-danger,
@@ -297,7 +303,8 @@ ul {
 .badge-danger,
 .alert-danger {
   background: var(--danger-color);
-  color: #fff;
+  /* color: #fff; */
+  color: var(--light-color);
 }
 
 .btn-success,
@@ -305,14 +312,17 @@ ul {
 .badge-success,
 .alert-success {
   background: var(--success-color);
-  color: #fff;
+  /* color: #fff; */
+  color: var(--light-color);
 }
 
 .btn-white,
 .bg-white,
 .badge-white,
 .alert-white {
-  background: #fff;
+  /* background: #fff; */
+  background: var(--light-color);
+
   color: #333;
   border: #ccc solid 1px;
 }
@@ -399,6 +409,8 @@ table th {
   z-index: 1;
   width: 100%;
   border-bottom: solid 1px var(--primary-color);
+  color: var(--dark-color);
+
   opacity: 0.9;
   margin-bottom: 1rem;
 }
@@ -408,13 +420,16 @@ table th {
 }
 
 .navbar a {
-  color: #fff;
+  /* color: #fff; */
+  color: var(--dark-color);
   padding: 0.45rem;
   margin: 0 0.25rem;
 }
 
 .navbar a:hover {
+  background: var(--primary-color);
   color: var(--light-color);
+  /* color: #fff; */
 }
 
 .navbar .welcome span {

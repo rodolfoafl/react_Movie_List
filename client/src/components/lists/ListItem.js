@@ -15,18 +15,18 @@ const ListItem = ({ list }) => {
   };
 
   return (
-    <div className="card bg-light">
-      <h3 className="text-primary text-left">{name}</h3>
-      <h3 className="text-primary text-center">{`Contém ${movies.length} filmes`}</h3>
+    <div className="card bg-primary">
+      <h3 className="text-dark text-left">{name}</h3>
+      <h3 className="text-dark text-center">{`Contém ${movies.length} filmes`}</h3>
       <p>
         <button
           className="btn btn-dark btn-sm"
           onClick={() => setCurrent(list)}
         >
-          Editar
+          <i className="far fa-edit"></i>
         </button>
         <button className="btn btn-danger btn-sm" onClick={onDelete}>
-          Deletar
+          <i className="far fa-trash-alt"></i>
         </button>
       </p>
     </div>
@@ -34,7 +34,7 @@ const ListItem = ({ list }) => {
 };
 
 ListItem.propTypes = {
-  list: PropTypes.object.isRequired
+  list: PropTypes.object.isRequired,
 };
 
 export default ListItem;
