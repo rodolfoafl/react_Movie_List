@@ -2,6 +2,7 @@ import React, { Fragment, useEffect, useState } from "react";
 import axios from "axios";
 
 import MovieItem from "../layout/MovieItem";
+import Modal from "../layout/Modal";
 
 const Movies = () => {
   let listMovies = null;
@@ -59,6 +60,18 @@ const Movies = () => {
 
   const [movies, setMovies] = useState(null);
 
+  const [show, setShow] = useState(false);
+  const showModal = (modalContent = "") => {
+    setShow(!show);
+    setModalContent(modalContent);
+  };
+
+  const [content, setContent] = useState("");
+  const setModalContent = (text) => {
+    console.log(`setting modal content: ${text}`);
+    setContent(text);
+  };
+
   const getMovies = (text) => {
     console.log(text);
     axios
@@ -91,12 +104,19 @@ const Movies = () => {
           ></input>
         </form>
       </div>
-
+      <Modal show={show} onClose={showModal}>
+        {content}
+      </Modal>
       <div className="container my-1">
         <div id="movies" className="grid-3">
           {movies !== null &&
             movies.map((movie) => (
-              <MovieItem key={movie.imdbID} movie={movie} />
+              <MovieItem
+                key={movie.imdbID}
+                movie={movie}
+                showModal={showModal}
+                // setContent={setModalContent}
+              />
             ))}
         </div>
       </div>

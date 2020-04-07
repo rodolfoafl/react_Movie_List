@@ -26,12 +26,12 @@ const Navbar = ({ title, icon }) => {
 
 Navbar.propType = {
   title: PropTypes.string.isRequired,
-  icon: PropTypes.string
+  icon: PropTypes.string,
 };
 
 Navbar.defaultProps = {
   title: "B&R Filmes",
-  icon: "fas fa-film"
+  icon: "fas fa-film",
 };
 
 export default Navbar;

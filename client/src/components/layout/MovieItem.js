@@ -1,8 +1,7 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useState } from "react";
 
-const MovieItem = ({ movie }) => {
+const MovieItem = ({ movie, showModal, setContent }) => {
   const { Poster, Title, imdbID } = movie;
-  console.log(Poster);
 
   const movieSelected = (e, id) => {
     e.preventDefault();
@@ -29,7 +28,8 @@ const MovieItem = ({ movie }) => {
         </div>
         <div className="well-button">
           <a
-            onClick={(e) => movieSelected(e, imdbID)}
+            // onClick={(e) => movieSelected(e, imdbID)}
+            onClick={() => showModal(Title)}
             className="btn btn-primary"
             href="#"
           >
