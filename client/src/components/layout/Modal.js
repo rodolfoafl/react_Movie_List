@@ -1,21 +1,35 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useContext, useState } from "react";
+
+import ListContext from "../../context/list/listContext";
 
 const Modal = ({ show, onClose, children }) => {
+  const listContext = useContext(ListContext);
+  const { lists, loading } = listContext;
+
+  const [selectedLists, setSelectedLists] = useState([]);
+
   const onCloseModal = (e) => {
     onClose && onClose(e);
   };
 
-  const movieLists = [
-    {
-      name: "Lista 1",
-    },
-    {
-      name: "Lista 2",
-    },
-    {
-      name: "Lista 3",
-    },
-  ];
+  const onConfirm = (e) => {
+    console.log(`lists selected: ${selectedLists}`);
+  };
+
+  // TODO: Change the use of name to _id
+  const onChange = (e) => {
+    let arrSelected = selectedLists;
+
+    if (e.target.checked) {
+      arrSelected.push(e.target.name);
+    } else {
+      let index = arrSelected.indexOf(e.target.name);
+      arrSelected.splice(index, 1);
+      // arrSelected = arrSelected.filter((item) => item !== e.target.name);
+    }
+
+    setSelectedLists(arrSelected);
+  };
 
   return (
     <Fragment>
@@ -24,15 +38,17 @@ const Modal = ({ show, onClose, children }) => {
           <div className="modal-background">
             <div className="modal text-dark" id="modal">
               <h3>{`Adicionar ${children} à:`}</h3>
-              {movieLists.map((l) => (
-                <div className="modal-content text-dark" key={l.name}>
+              {lists.map((l) => (
+                <div className="modal-content text-dark" key={l._id}>
                   <label htmlFor={l.name}>
                     {l.name}
                     <input
                       type="checkbox"
                       className="mx-1"
-                      id={l.name}
+                      id={l._id}
                       name={l.name}
+                      defaultChecked={false}
+                      onChange={(e) => onChange(e)}
                     ></input>
                   </label>
                 </div>
@@ -44,6 +60,12 @@ const Modal = ({ show, onClose, children }) => {
                   onClick={(e) => onCloseModal(e)}
                 >
                   Fechar
+                </button>
+                <button
+                  className="toggle-button mx-1"
+                  onClick={(e) => onConfirm(e)}
+                >
+                  Confirmar
                 </button>
               </div>
             </div>

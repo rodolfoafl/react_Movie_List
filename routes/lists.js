@@ -10,7 +10,7 @@ const List = require("../models/List");
 //@access   Public
 router.get("/", async (req, res) => {
   try {
-    const lists = await List.find().sort({ date: -1 });
+    const lists = await List.find().sort({ name: 1 });
     return res.json(lists);
   } catch (error) {
     return returnError(error, res);
@@ -22,11 +22,7 @@ router.get("/", async (req, res) => {
 //@access   Public
 router.post(
   "/",
-  [
-    check("name", "Name is required")
-      .not()
-      .isEmpty()
-  ],
+  [check("name", "Name is required").not().isEmpty()],
   async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -43,7 +39,7 @@ router.post(
       }
 
       list = new List({
-        name
+        name,
       });
 
       const newList = await list.save();

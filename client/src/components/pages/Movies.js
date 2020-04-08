@@ -1,13 +1,19 @@
-import React, { Fragment, useEffect, useState } from "react";
+import React, { Fragment, useEffect, useState, useContext } from "react";
 import axios from "axios";
 
 import MovieItem from "../layout/MovieItem";
 import Modal from "../layout/Modal";
 
-const Movies = () => {
-  let listMovies = null;
+import ListContext from "../../context/list/listContext";
 
+const Movies = () => {
+  const listContext = useContext(ListContext);
+  const { getLists } = listContext;
+
+  let listMovies = null;
   useEffect(() => {
+    getLists();
+
     listMovies = document.querySelector("#movies");
     //eslist-disable-next-line
   }, []);
@@ -68,7 +74,7 @@ const Movies = () => {
 
   const [content, setContent] = useState("");
   const setModalContent = (text) => {
-    console.log(`setting modal content: ${text}`);
+    // console.log(`setting modal content: ${text}`);
     setContent(text);
   };
 

@@ -14,11 +14,20 @@ const ListItem = ({ list }) => {
     deleteList(_id);
   };
 
+  const onDisplayList = () => {
+    console.log(`display list: ${name}`);
+  };
+
   return (
     <div className="card bg-primary">
       <h3 className="text-dark text-left">{name}</h3>
       <h3 className="text-dark text-center">{`Contém ${movies.length} filmes`}</h3>
       <p>
+        <button className="btn btn-success btn-sm" onClick={onDisplayList}>
+          <i className="fas fa-plus"></i>
+          {/* <i className="fas fa-search-plus"></i> */}
+          {/* <i className="far fa-eye"></i> */}
+        </button>
         <button
           className="btn btn-dark btn-sm"
           onClick={() => setCurrent(list)}
