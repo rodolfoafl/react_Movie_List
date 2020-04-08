@@ -2,7 +2,7 @@ import React, { Fragment, useContext, useState } from "react";
 
 import ListContext from "../../context/list/listContext";
 
-const Modal = ({ show, onClose, children }) => {
+const Modal = ({ show, onClose, movie }) => {
   const listContext = useContext(ListContext);
   const { lists, loading } = listContext;
 
@@ -13,7 +13,13 @@ const Modal = ({ show, onClose, children }) => {
   };
 
   const onConfirm = (e) => {
-    console.log(`lists selected: ${selectedLists}`);
+    console.log("Inserir: ");
+    const movieToAdd = {
+      name: movie.Title,
+      image: movie.Poster,
+    };
+    console.log(movieToAdd);
+    console.log(`\nnas listas: ${selectedLists}`);
   };
 
   // TODO: Change the use of name to _id
@@ -25,7 +31,6 @@ const Modal = ({ show, onClose, children }) => {
     } else {
       let index = arrSelected.indexOf(e.target.name);
       arrSelected.splice(index, 1);
-      // arrSelected = arrSelected.filter((item) => item !== e.target.name);
     }
 
     setSelectedLists(arrSelected);
@@ -37,7 +42,7 @@ const Modal = ({ show, onClose, children }) => {
         <Fragment>
           <div className="modal-background">
             <div className="modal text-dark" id="modal">
-              <h3>{`Adicionar ${children} à:`}</h3>
+              <h3>{`Adicionar ${movie.Title} à:`}</h3>
               {lists.map((l) => (
                 <div className="modal-content text-dark" key={l._id}>
                   <label htmlFor={l.name}>
@@ -61,6 +66,7 @@ const Modal = ({ show, onClose, children }) => {
                 >
                   Fechar
                 </button>
+                {/* TODO: Habilitar o botão de 'Confirmar somente se alguma lista for selecionada' */}
                 <button
                   className="toggle-button mx-1"
                   onClick={(e) => onConfirm(e)}

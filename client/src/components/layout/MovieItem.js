@@ -1,18 +1,15 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment } from "react";
 
-const MovieItem = ({ movie, showModal, setContent }) => {
-  const { Poster, Title, imdbID } = movie;
+const MovieItem = ({ movie, showModal }) => {
+  const { Poster, Title } = movie;
 
-  const movieSelected = (e, id) => {
-    e.preventDefault();
-    console.log(`selected: ${id}`);
-  };
+  // const movieSelected = (e, id) => {
+  //   e.preventDefault();
+  //   console.log(`selected: ${id}`);
+  // };
 
   const defaultPoster =
     "https://screenshotlayer.com/images/assets/placeholder.png";
-  //   if (movie.Poster !== "N/A") {
-  //     poster = movie.Poster;
-  //   }
 
   return (
     <Fragment>
@@ -29,7 +26,7 @@ const MovieItem = ({ movie, showModal, setContent }) => {
         <div className="well-button">
           <a
             // onClick={(e) => movieSelected(e, imdbID)}
-            onClick={() => showModal(Title)}
+            onClick={() => showModal(movie)}
             className="btn btn-primary"
             href="#"
           >
