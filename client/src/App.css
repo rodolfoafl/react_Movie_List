@@ -507,12 +507,28 @@ input[type="checkbox"] {
   padding: 0.5rem 1rem;
 }
 .toggle-button {
+  text-decoration: none;
+  outline: none;
   border: 0;
   background: #78f89f;
   border-radius: 5px;
   padding: 0.5rem 1rem;
   font-size: 0.8rem;
   line-height: 1;
+  cursor: pointer;
+  /* opacity: 1; */
+}
+
+.toggle-button:hover {
+  /* color: #666; */
+  background: var(--light-color);
+  color: var(--dark-color);
+}
+
+.toggle-button.disabled {
+  /* background: #ccc; */
+  cursor: default;
+  opacity: 0.5;
 }
 
 /*

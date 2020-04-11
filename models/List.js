@@ -3,13 +3,24 @@ const mongoose = require("mongoose");
 const ListSchema = mongoose.Schema({
   name: {
     type: String,
-    required: true
+    required: true,
   },
-  movies: [],
+  movies: [
+    {
+      name: {
+        type: String,
+        // required: true,
+      },
+      image: {
+        type: String,
+        // required: true,
+      },
+    },
+  ],
   date: {
     type: Date,
-    default: Date.now()
-  }
+    default: Date.now(),
+  },
 });
 
 module.exports = mongoose.model("list", ListSchema);

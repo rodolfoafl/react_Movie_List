@@ -55,15 +55,12 @@ router.post(
 //@desc     Update list
 //@access   Public
 router.put("/:id", async (req, res) => {
-  const { name, movies } = req.body;
+  const { name } = req.body;
 
-  //Build contact object
+  //Build list object
   const listFields = {};
   if (name) {
     listFields.name = name;
-  }
-  if (movies) {
-    listFields.movies = movies;
   }
 
   try {
@@ -85,6 +82,37 @@ router.put("/:id", async (req, res) => {
   }
 });
 
+// @route   PUT api/lists/movie
+// @desc    Add list movie
+// @access  Public
+router.put("/movie/:id", async (req, res) => {
+  const { name, image } = req.body[0];
+  // console.log(req.body[0]);
+
+  const newMovie = {
+    name: name,
+    image: image,
+  };
+
+  // console.log(newMovie);
+
+  try {
+    const list = await List.findOne({ _id: req.params.id });
+
+    if (!list) {
+      return res.status(404).json({ msg: "List not found." });
+    }
+
+    list.movies.unshift(newMovie);
+
+    await list.save();
+    return res.json(list);
+  } catch (error) {
+    console.error(error.message);
+    return res.status(500).send(`Server error: ${error.message}`);
+  }
+});
+
 //@route    DELETE api/lists/:id
 //@desc     Delete list
 //@access   Public
@@ -98,6 +126,34 @@ router.delete("/:id", async (req, res) => {
 
     await List.findByIdAndRemove(req.params.id);
     return res.json({ msg: "List removed." });
+  } catch (error) {
+    returnError(error, res);
+  }
+});
+
+//@route    DELETE api/lists/:listId/:movieId
+//@desc     Delete Movie from List
+//@access   Public
+router.delete("/:listId/:movieId", async (req, res) => {
+  try {
+    let list = await List.findOne({ _id: req.params.listId });
+
+    if (!list) {
+      return res.status(404).json({ msg: "List not found." });
+    }
+    // console.log(req.params.movieId);
+
+    //Get remove index
+    const removeIndex = list.movies
+      .map((item) => item._id)
+      .indexOf(req.params.movieId);
+
+    // console.log(removeIndex);
+
+    list.movies.splice(removeIndex, 1);
+
+    await list.save();
+    return res.json({ msg: "Movie removed." });
   } catch (error) {
     returnError(error, res);
   }

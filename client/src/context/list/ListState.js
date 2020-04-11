@@ -15,29 +15,29 @@ import {
   LIST_ERROR,
   GET_LISTS,
   CLEAR_LISTS,
-  SET_LOADING
+  SET_LOADING,
 } from "../types";
 
-const ListState = props => {
+const ListState = (props) => {
   const initialState = {
     lists: null,
     current: null,
     filtered: null,
     error: null,
-    loading: false
+    loading: false,
   };
 
   const [state, dispatch] = useReducer(listReducer, initialState);
 
   const config = {
     headers: {
-      "Content-Type": "application/json"
-    }
+      "Content-Type": "application/json",
+    },
   };
 
   const setLoading = () => {
     dispatch({
-      type: SET_LOADING
+      type: SET_LOADING,
     });
   };
 
@@ -48,103 +48,143 @@ const ListState = props => {
       const res = await axios.get("/api/lists");
       dispatch({
         type: GET_LISTS,
-        payload: res.data
+        payload: res.data,
       });
     } catch (error) {
       dispatch({
         type: LIST_ERROR,
-        payload: error.response.msg
+        payload: error.response.msg,
       });
     }
   };
 
   //Add List
-  const addList = async list => {
+  const addList = async (list) => {
     setLoading();
     try {
       const res = await axios.post("/api/lists", list, config);
       dispatch({
         type: ADD_LIST,
-        payload: res.data
+        payload: res.data,
       });
     } catch (error) {
       dispatch({
         type: LIST_ERROR,
-        payload: error.response.msg
+        payload: error.response.msg,
+      });
+    }
+  };
+
+  //Add Movie
+  const addMovie = async (listId, movie) => {
+    console.log(listId, movie.name);
+
+    setLoading();
+    try {
+      const res = await axios.put(
+        `/api/lists/movie/${listId}`,
+        [movie, listId],
+        config
+      );
+      dispatch({
+        type: UPDATE_LIST,
+        payload: res.data,
+      });
+    } catch (error) {
+      dispatch({
+        type: LIST_ERROR,
+        payload: error.response.msg,
       });
     }
   };
 
   //Delete List
-  const deleteList = async id => {
+  const deleteList = async (id) => {
     setLoading();
     try {
       await axios.delete(`/api/lists/${id}`);
       dispatch({
         type: DELETE_LIST,
-        payload: id
+        payload: id,
       });
     } catch (error) {
       dispatch({
         type: LIST_ERROR,
-        payload: error.response.msg
+        payload: error.response.msg,
+      });
+    }
+  };
+
+  //Delete Movie from List
+  const deleteMovie = async (listId, movieId) => {
+    setLoading();
+    try {
+      const res = await axios.delete(`/api/lists/${listId}/${movieId}}`);
+      dispatch({
+        type: UPDATE_LIST,
+        payload: res.data,
+      });
+    } catch (error) {
+      dispatch({
+        type: LIST_ERROR,
+        payload: error.response.msg,
       });
     }
   };
 
   //Set current List
-  const setCurrent = list => {
+  const setCurrent = (list) => {
     dispatch({
       type: SET_CURRENT,
-      payload: list
+      payload: list,
     });
   };
   //Clear current List
   const clearCurrent = () => {
     dispatch({
-      type: CLEAR_CURRENT
+      type: CLEAR_CURRENT,
     });
   };
 
   //Update List
-  const updateList = async list => {
+  const updateList = async (list) => {
     setLoading();
 
     try {
       const res = await axios.put(`/api/lists/${list._id}`, list, config);
       dispatch({
         type: UPDATE_LIST,
-        payload: res.data
+        payload: res.data,
       });
     } catch (error) {
       dispatch({
         type: LIST_ERROR,
-        payload: error.response.msg
+        payload: error.response.msg,
       });
     }
   };
 
   //Filter Lists
-  const filterLists = text => {
+  const filterLists = (text) => {
     setLoading();
 
     dispatch({
       type: FILTER_LIST,
-      payload: text
+      payload: text,
     });
   };
 
   //Clear filter
   const clearFilter = () => {
     dispatch({
-      type: CLEAR_FILTER
+      type: CLEAR_FILTER,
     });
   };
 
   //Clear Lists
   const clearLists = () => {
     dispatch({
-      type: CLEAR_LISTS
+      type: CLEAR_LISTS,
     });
   };
 
@@ -165,7 +205,9 @@ const ListState = props => {
         filterLists,
         clearFilter,
         setLoading,
-        clearLists
+        clearLists,
+        addMovie,
+        deleteMovie,
       }}
     >
       {props.children}
