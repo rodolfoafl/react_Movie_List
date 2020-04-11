@@ -8,9 +8,9 @@ const Modal = ({ show, onClose, movie }) => {
 
   const [selectedLists, setSelectedLists] = useState([]);
 
-  useEffect(() => {
-    console.log("modal is open...");
-  }, [movie]);
+  // useEffect(() => {
+  //   console.log("modal is open...");
+  // }, []);
 
   const onCloseModal = (e) => {
     onClose && onClose(e);
