@@ -8,8 +8,6 @@ connectDB();
 
 app.use(express.json({ extended: false }));
 
-app.get("/", (req, res) => res.json({ msg: "Welcome..." }));
-
 //Define Routes
 app.use("/api/lists", require("./routes/lists"));
 
