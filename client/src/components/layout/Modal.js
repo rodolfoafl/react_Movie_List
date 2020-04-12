@@ -1,52 +1,89 @@
 import React, { Fragment, useContext, useState, useEffect } from "react";
 
 import ListContext from "../../context/list/listContext";
+import AlertContext from "../../context/alert/alertContext";
 
 const Modal = ({ show, onClose, movie }) => {
   const listContext = useContext(ListContext);
-  const { lists, loading, addMovie } = listContext;
+  const { lists, loading, addMovie, deleteMovie } = listContext;
+
+  const alertContext = useContext(AlertContext);
+  const { setAlert } = alertContext;
 
   const [selectedLists, setSelectedLists] = useState([]);
+  // const [deselectedLists, setDiselectedLists] = useState([]);
 
-  // useEffect(() => {
-  //   console.log("modal is open...");
-  // }, []);
+  useEffect(() => {
+    if (show) {
+      if (lists !== null) {
+        let selLists = lists.filter((list) =>
+          list.movies.some((m) => m.name === movie.Title)
+        );
+        setSelectedLists(selLists);
+      }
+    }
+  }, [show]);
 
   const onCloseModal = (e) => {
     onClose && onClose(e);
+
+    setSelectedLists([]);
+    // setDiselectedLists([]);
   };
 
   const onConfirm = (e) => {
-    if (selectedLists.length === 0) {
-      return alert("Selecione ao menos uma Lista!");
+    // console.log(lists[0].movies.includes(movie.Title));
+    // if (selectedLists.length === 0) {
+    //   return alert("Selecione ao menos uma Lista!");
+    // } else {
+    if (selectedLists.length > 0) {
+      let movieToAdd = {
+        name: movie.Title,
+        image: movie.Poster,
+      };
+      selectedLists.map((list) => addMovie(list._id, movieToAdd));
+      setAlert("Filme adicionado com sucesso!", "success");
     }
 
-    let movieToAdd = {
-      name: movie.Title,
-      image: movie.Poster,
-    };
-
-    addMovie(selectedLists[0]._id, movieToAdd);
+    //Remove Movie from previously selected List
+    // if (deselectedLists.length > 0) {
+    //   deselectedLists.map((list) => deleteMovie(list, movie.Title));
+    // }
 
     onCloseModal();
+
+    // let movieToAdd = {
+    //   name: movie.Title,
+    //   image: movie.Poster,
+    // };
+    // selectedLists.map((list) => addMovie(list._id, movieToAdd));
+    // setAlert("Filme adicionado com sucesso!", "success");
+    // // addMovie(selectedLists[0]._id, movieToAdd);
+    // onCloseModal();
   };
 
-  // TODO: Change the use of name to _id
   const onChange = (e, list) => {
     let arrSelected = selectedLists;
+    // let arrDeselected = deselectedLists;
 
     if (e.target.checked) {
-      // arrSelected.push(e.target.name);
-      // arrSelected.push(e.target._id);
       arrSelected.push(list);
+
+      // let index = arrDeselected.indexOf(list._id);
+      // arrDeselected.splice(index, 1);
+
+      console.log(arrSelected);
     } else {
-      // let index = arrSelected.indexOf(e.target.name);
-      // let index = arrSelected.indexOf(e.target._id);
       let index = arrSelected.indexOf(list._id);
       arrSelected.splice(index, 1);
+
+      // arrDeselected.push(list);
+
+      console.log(arrSelected);
     }
 
     setSelectedLists(arrSelected);
+    // setDiselectedLists(arrDeselected);
   };
 
   return (
@@ -68,7 +105,10 @@ const Modal = ({ show, onClose, movie }) => {
                         className="mx-1"
                         id={list._id}
                         name={list.name}
-                        defaultChecked={false}
+                        defaultChecked={list.movies.some(
+                          (m) => m.name === movie.Title
+                        )}
+                        // defaultChecked={selectedLists.length > 0}
                         onChange={(e) => onChange(e, list)}
                       ></input>
                     </label>

@@ -131,10 +131,10 @@ router.delete("/:id", async (req, res) => {
   }
 });
 
-//@route    DELETE api/lists/:listId/:movieId
+//@route    DELETE api/lists/:listId/:movieName
 //@desc     Delete Movie from List
 //@access   Public
-router.delete("/:listId/:movieId", async (req, res) => {
+router.delete("/:listId/:movieName", async (req, res) => {
   try {
     let list = await List.findOne({ _id: req.params.listId });
 
@@ -145,8 +145,8 @@ router.delete("/:listId/:movieId", async (req, res) => {
 
     //Get remove index
     const removeIndex = list.movies
-      .map((item) => item._id)
-      .indexOf(req.params.movieId);
+      .map((item) => item.name)
+      .indexOf(req.params.movieName);
 
     // console.log(removeIndex);
 

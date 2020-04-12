@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 
 import ListContext from "../../context/list/listContext";
 
-const ListItem = ({ list }) => {
+const ListItem = ({ list, showModal }) => {
   const listContext = useContext(ListContext);
   const { deleteList, setCurrent, clearCurrent } = listContext;
 
@@ -15,7 +15,7 @@ const ListItem = ({ list }) => {
   };
 
   const onDisplayList = () => {
-    console.log(`display list: ${name}`);
+    movies.map((m) => console.log(m.name));
   };
 
   return (
@@ -23,7 +23,10 @@ const ListItem = ({ list }) => {
       <h3 className="text-dark text-left">{name}</h3>
       <h3 className="text-dark text-center">{`Contém ${movies.length} filmes`}</h3>
       <p>
-        <button className="btn btn-success btn-sm" onClick={onDisplayList}>
+        <button
+          className="btn btn-success btn-sm"
+          onClick={() => showModal(list)}
+        >
           <i className="fas fa-plus"></i>
           {/* <i className="fas fa-search-plus"></i> */}
           {/* <i className="far fa-eye"></i> */}

@@ -116,10 +116,10 @@ const ListState = (props) => {
   };
 
   //Delete Movie from List
-  const deleteMovie = async (listId, movieId) => {
+  const deleteMovie = async (listId, movieName) => {
     setLoading();
     try {
-      const res = await axios.delete(`/api/lists/${listId}/${movieId}}`);
+      const res = await axios.delete(`/api/lists/${listId}/${movieName}}`);
       dispatch({
         type: UPDATE_LIST,
         payload: res.data,
