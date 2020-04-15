@@ -585,6 +585,18 @@ input[type="checkbox"] {
     display: none;
   }
 
+  .form-search input[type="text"] {
+    width: 80%;
+  }
+  .form-search button {
+    width: 20%;
+  }
+
+  .modal {
+    width: 85%;
+    font-size: 0.9rem;
+  }
+
   .grid-2,
   .grid-3,
   .grid-4 {
