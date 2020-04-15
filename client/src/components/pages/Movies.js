@@ -30,7 +30,7 @@ const Movies = () => {
 
   const getMovies = (text) => {
     axios
-      .get(`http://www.omdbapi.com/?s=${text}&apikey=3f85b66e`)
+      .get(`https://www.omdbapi.com/?s=${text}&apikey=3f85b66e`)
       .then((res) => {
         setMovies(res.data.Search.filter((m) => m.Type === "movie"));
       })
@@ -49,13 +49,20 @@ const Movies = () => {
     <Fragment>
       <div className="container">
         <h3 className="text-center">Procurar Filmes</h3>
-        <form id="searchForm" onSubmit={(e) => onSubmit(e)}>
+        <form
+          id="searchForm"
+          onSubmit={(e) => onSubmit(e)}
+          className="form-search"
+        >
           <input
             type="text"
             className="form-control"
             id="searchText"
             placeholder="Filme..."
           ></input>
+          <button onSubmit={(e) => onSubmit(e)}>
+            <i className="fas fa-search" />
+          </button>
         </form>
       </div>
       <Modal show={show} onClose={showModal} movie={currentMovie} />

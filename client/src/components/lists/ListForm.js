@@ -12,7 +12,7 @@ const ListForm = () => {
 
   const [list, setList] = useState({
     name: "",
-    movies: []
+    movies: [],
   });
 
   const { name, movies } = list;
@@ -23,16 +23,16 @@ const ListForm = () => {
     } else {
       setList({
         name: "",
-        movies: []
+        movies: [],
       });
     }
   }, [listContext, current]);
 
-  const onChange = e => {
+  const onChange = (e) => {
     setList({ ...list, [e.target.name]: e.target.value });
   };
 
-  const onSubmit = e => {
+  const onSubmit = (e) => {
     e.preventDefault();
     if (current === null) {
       setAlert("Lista criada com sucesso!", "success");
@@ -49,7 +49,7 @@ const ListForm = () => {
   };
 
   return (
-    <form onSubmit={onSubmit}>
+    <form onSubmit={onSubmit} className="form-list">
       <h2 className="text-primary">
         {current ? "Editar Lista" : "Criar Nova Lista"}
       </h2>

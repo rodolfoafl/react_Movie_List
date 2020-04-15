@@ -357,16 +357,45 @@ input {
   margin: 1.2rem 0;
 }
 
+.form-search {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem 0;
+  text-align: center;
+}
+.form-search input[type="text"] {
+  display: block;
+  width: 90%;
+  padding: 0.4rem;
+  font-size: 1.2rem;
+  border: 1px solid #ccc;
+}
+.form-search button {
+  /* display: block; */
+  background: none;
+  color: var(--primary-color);
+  width: 10%;
+  padding: 0.4rem;
+  font-size: 1rem;
+  border: 1px solid var(--primary-color);
+  cursor: pointer;
+}
+.form-search button:hover {
+  background: var(--primary-color);
+  color: var(--dark-color);
+}
+
 .form-text {
   display: block;
   margin-top: 0.3rem;
   color: #888;
 }
 
-input[type="text"],
-input[type="email"],
-input[type="password"],
-input[type="date"],
+.form-list input[type="text"],
+.form-list input[type="email"],
+.form-list input[type="password"],
+.form-list input[type="date"],
 select,
 textarea {
   display: block;

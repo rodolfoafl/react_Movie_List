@@ -14,7 +14,7 @@ const ListFilter = () => {
     }
   });
 
-  const onChange = e => {
+  const onChange = (e) => {
     if (text.current.value !== "") {
       filterLists(e.target.value);
     } else {
@@ -23,7 +23,7 @@ const ListFilter = () => {
   };
 
   return (
-    <form>
+    <form className="form-list">
       <input
         ref={text}
         type="text"
