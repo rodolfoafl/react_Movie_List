@@ -21,7 +21,7 @@ const ListItem = ({ list, showModal }) => {
   return (
     <div className="card bg-primary">
       <h3 className="text-dark text-left">{name}</h3>
-      <h3 className="text-dark text-center">{`Contém ${movies.length} filmes`}</h3>
+      <h3 className="text-dark text-center my-1">{`Contém ${movies.length} filmes`}</h3>
       <p>
         <button
           className="btn btn-success btn-sm"

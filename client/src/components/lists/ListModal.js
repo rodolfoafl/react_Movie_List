@@ -1,21 +1,18 @@
 import React, { Fragment, useContext, useState, useEffect } from "react";
-import PropTypes from "prop-types";
 
-import ListContext from "../../context/list/listContext";
-// import AlertContext from "../../context/alert/alertContext";
+// import ListContext from "../../context/list/listContext";
+import AlertContext from "../../context/alert/alertContext";
 
 const ListModal = ({ show, onClose, list }) => {
-  const listContext = useContext(ListContext);
-  const { loading } = listContext;
+  //   const listContext = useContext(ListContext);
+  //   const { lists, loading } = listContext;
 
-  const { name, movies } = list;
+  const alertContext = useContext(AlertContext);
+  const { setAlert } = alertContext;
 
   useEffect(() => {
     if (show) {
-      console.log("show modal");
-      if (list !== null) {
-        console.log(name);
-      }
+      console.log(`show list: ${list.name}`);
     }
   }, [show]);
 
@@ -29,26 +26,45 @@ const ListModal = ({ show, onClose, list }) => {
         <Fragment>
           <div className="modal-background">
             <div className="modal text-dark" id="modal">
-              <h3>{name}</h3>
-              {movies.length === 0 ? (
-                <h3>Nenhuma Filme adicionado.</h3>
-              ) : (
-                movies.map((movie) => (
-                  <div className="modal-content text-dark" key={movie._id}>
-                    <label htmlFor={movie.name}>{movie.name}</label>
-                  </div>
-                ))
-              )}
+              <div>
+                <button
+                  // className="toggle-button disabled mx-1"
+
+                  className="toggle-button danger m"
+                  onClick={(e) => onCloseModal(e)}
+                  style={{
+                    float: "right",
+                  }}
+                >
+                  <i class="fas fa-times"></i>
+                </button>
+                <h3>{list.name}</h3>
+              </div>
+              <div className="grid-3">
+                {list.movies === 0 ? (
+                  <h3>Nenhuma Filme encontrado.</h3>
+                ) : (
+                  list.movies.map((movie) => (
+                    <div
+                      className="modal-content text-dark mb-2"
+                      key={movie._id}
+                    >
+                      <img
+                        src={movie.image}
+                        alt=""
+                        className="movie-image sm bordered"
+                      ></img>
+                      <p>{movie.name}</p>
+                    </div>
+                  ))
+                )}
+              </div>
             </div>
           </div>
         </Fragment>
       )}
     </Fragment>
   );
-};
-
-ListModal.propTypes = {
-  list: PropTypes.object.isRequired,
 };
 
 export default ListModal;

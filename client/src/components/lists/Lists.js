@@ -2,11 +2,10 @@ import React, { useContext, Fragment, useEffect, useState } from "react";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 
 import ListItem from "./ListItem";
+import ListModal from "./ListModal";
 
 import ListContext from "../../context/list/listContext";
 import Spinner from "../layout/Spinner";
-
-import ListModal from "./ListModal";
 
 const Lists = () => {
   const listContext = useContext(ListContext);
@@ -21,7 +20,7 @@ const Lists = () => {
   const [currentList, setCurrentList] = useState(null);
 
   const [show, setShow] = useState(false);
-  const showModal = (list = null) => {
+  const showModal = (list) => {
     setShow(!show);
     setCurrentList(list);
   };
@@ -35,6 +34,7 @@ const Lists = () => {
       {lists !== null && !loading ? (
         // <TransitionGroup>
         <Fragment>
+          <ListModal show={show} onClose={showModal} list={currentList} />
           {filtered !== null
             ? filtered.map((l) => (
                 <ListItem key={l._id} list={l} showModal={showModal} />
@@ -43,7 +43,6 @@ const Lists = () => {
                 <ListItem key={l._id} list={l} showModal={showModal} />
               ))}
           {/* </TransitionGroup> */}
-          {/* <ListModal show={show} onClose={showModal} list={currentList} /> */}
         </Fragment>
       ) : (
         <Spinner />
