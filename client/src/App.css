@@ -28,6 +28,7 @@ body {
 a {
   color: var(--primary-color);
   text-decoration: none;
+  cursor: pointer;
 }
 
 a:hover {
@@ -71,6 +72,13 @@ ul {
 .movie-image.sm {
   max-height: 260px;
   width: auto;
+}
+
+.status.active {
+  color: var(--primary-color);
+}
+.status.inactive {
+  color: var(--danger-color);
 }
 
 .well-title {

@@ -1,12 +1,10 @@
 import React, { Fragment, useContext, useState, useEffect } from "react";
 
-// import ListContext from "../../context/list/listContext";
 import AlertContext from "../../context/alert/alertContext";
 
-const ListModal = ({ show, onClose, list }) => {
-  //   const listContext = useContext(ListContext);
-  //   const { lists, loading } = listContext;
+import ListMovieItem from "./ListMovieItem";
 
+const ListModal = ({ show, onClose, list }) => {
   const alertContext = useContext(AlertContext);
   const { setAlert } = alertContext;
 
@@ -36,7 +34,7 @@ const ListModal = ({ show, onClose, list }) => {
                     float: "right",
                   }}
                 >
-                  <i class="fas fa-times"></i>
+                  <i className="fas fa-times"></i>
                 </button>
                 <h3>{list.name}</h3>
               </div>
@@ -45,17 +43,7 @@ const ListModal = ({ show, onClose, list }) => {
                   <h3>Nenhuma Filme encontrado.</h3>
                 ) : (
                   list.movies.map((movie) => (
-                    <div
-                      className="modal-content text-dark mb-2"
-                      key={movie._id}
-                    >
-                      <img
-                        src={movie.image}
-                        alt=""
-                        className="movie-image sm bordered"
-                      ></img>
-                      <p>{movie.name}</p>
-                    </div>
+                    <ListMovieItem listId={list._id} movie={movie} />
                   ))
                 )}
               </div>

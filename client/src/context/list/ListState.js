@@ -16,6 +16,7 @@ import {
   GET_LISTS,
   CLEAR_LISTS,
   SET_LOADING,
+  UPDATE_MOVIE_STATUS,
 } from "../types";
 
 const ListState = (props) => {
@@ -164,6 +165,17 @@ const ListState = (props) => {
     }
   };
 
+  const updateMovieStatus = async (listId, movieName) => {
+    try {
+      await axios.put(`/api/lists/updateMovie/${listId}/${movieName}`);
+    } catch (error) {
+      dispatch({
+        type: LIST_ERROR,
+        payload: error.response.msg,
+      });
+    }
+  };
+
   //Filter Lists
   const filterLists = (text) => {
     setLoading();
@@ -208,6 +220,7 @@ const ListState = (props) => {
         clearLists,
         addMovie,
         deleteMovie,
+        updateMovieStatus,
       }}
     >
       {props.children}

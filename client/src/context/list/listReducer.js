@@ -9,7 +9,7 @@ import {
   LIST_ERROR,
   GET_LISTS,
   CLEAR_LISTS,
-  SET_LOADING
+  SET_LOADING,
 } from "../types";
 
 export default (state, action) => {
@@ -19,68 +19,70 @@ export default (state, action) => {
       return {
         ...state,
         lists: [payload, ...state.lists],
-        loading: false
+        loading: false,
       };
     case DELETE_LIST:
       return {
         ...state,
-        lists: state.lists.filter(l => l._id !== payload),
-        loading: false
+        lists: state.lists.filter((l) => l._id !== payload),
+        loading: false,
       };
     case SET_CURRENT:
       return {
         ...state,
-        current: payload
+        current: payload,
       };
     case CLEAR_CURRENT:
       return {
         ...state,
-        current: null
+        current: null,
       };
     case UPDATE_LIST:
       return {
         ...state,
-        lists: state.lists.map(l => (l._id === payload._id ? payload : l)),
-        loading: false
+        lists: state.lists.map((l) => (l._id === payload._id ? payload : l)),
+        loading: false,
       };
     case FILTER_LIST:
       return {
         ...state,
-        filtered: state.lists.filter(l => {
+        filtered: state.lists.filter((l) => {
           const regex = new RegExp(`${payload}`, "gi");
           return l.name.match(regex);
         }),
-        loading: false
+        loading: false,
       };
     case CLEAR_FILTER:
       return {
         ...state,
-        filtered: null
+        filtered: null,
       };
     case LIST_ERROR:
       return {
         ...state,
-        error: payload
+        error: payload,
       };
     case GET_LISTS:
       return {
         ...state,
         lists: payload,
-        loading: false
+        loading: false,
       };
     case SET_LOADING:
       return {
         ...state,
-        loading: true
+        loading: true,
       };
+
     case CLEAR_LISTS:
       return {
         ...state,
         lists: null,
         filtered: null,
         error: null,
-        current: null
+        current: null,
       };
+
     default:
       return state;
   }

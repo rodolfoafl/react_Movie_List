@@ -82,10 +82,10 @@ router.put("/:id", async (req, res) => {
   }
 });
 
-// @route   PUT api/lists/movie
+// @route   PUT api/lists/addMovie/:listId
 // @desc    Add list movie
 // @access  Public
-router.put("/movie/:id", async (req, res) => {
+router.put("/addMovie/:listId", async (req, res) => {
   const { name, image } = req.body[0];
   // console.log(req.body[0]);
 
@@ -97,13 +97,45 @@ router.put("/movie/:id", async (req, res) => {
   // console.log(newMovie);
 
   try {
-    const list = await List.findOne({ _id: req.params.id });
+    const list = await List.findOne({ _id: req.params.listId });
 
     if (!list) {
       return res.status(404).json({ msg: "List not found." });
     }
 
     list.movies.unshift(newMovie);
+
+    await list.save();
+    return res.json(list);
+  } catch (error) {
+    console.error(error.message);
+    return res.status(500).send(`Server error: ${error.message}`);
+  }
+});
+
+// @route   PUT api/lists/updateMovie/:listId/:movieId
+// @desc    Update a Movie status
+// @access  Public
+router.put("/updateMovie/:listId/:movieName", async (req, res) => {
+  try {
+    const list = await List.findOne({ _id: req.params.listId });
+
+    if (!list) {
+      return res.status(404).json({ msg: "List not found." });
+    }
+    // console.log(req.params.movieId);
+
+    const toUpdate = list.movies.find(
+      (movie) => movie.name === req.params.movieName
+    );
+
+    if (!toUpdate) {
+      return res.status(404).json({ msg: "Movie not found." });
+    }
+
+    // // console.log(toUpdate);
+    let currentStatus = toUpdate.status;
+    toUpdate.status = !currentStatus;
 
     await list.save();
     return res.json(list);
