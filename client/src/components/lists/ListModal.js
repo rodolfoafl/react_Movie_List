@@ -1,12 +1,16 @@
 import React, { Fragment, useContext, useState, useEffect } from "react";
 
-import AlertContext from "../../context/alert/alertContext";
+// import AlertContext from "../../context/alert/alertContext";
+import ListContext from "../../context/list/listContext";
 
 import ListMovieItem from "./ListMovieItem";
 
 const ListModal = ({ show, onClose, list }) => {
-  const alertContext = useContext(AlertContext);
-  const { setAlert } = alertContext;
+  const listContext = useContext(ListContext);
+  const { getLists } = listContext;
+
+  // const alertContext = useContext(AlertContext);
+  // const { setAlert } = alertContext;
 
   useEffect(() => {
     if (show) {
@@ -16,6 +20,7 @@ const ListModal = ({ show, onClose, list }) => {
 
   const onCloseModal = (e) => {
     onClose && onClose(e);
+    getLists();
   };
 
   return (

@@ -16,7 +16,6 @@ import {
   GET_LISTS,
   CLEAR_LISTS,
   SET_LOADING,
-  UPDATE_MOVIE_STATUS,
 } from "../types";
 
 const ListState = (props) => {
@@ -83,8 +82,8 @@ const ListState = (props) => {
     setLoading();
     try {
       const res = await axios.put(
-        `/api/lists/movie/${listId}`,
-        [movie, listId],
+        `/api/lists/addMovie/${listId}`,
+        movie,
         config
       );
       dispatch({
@@ -221,6 +220,7 @@ const ListState = (props) => {
         addMovie,
         deleteMovie,
         updateMovieStatus,
+        setLoading,
       }}
     >
       {props.children}
