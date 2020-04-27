@@ -5,24 +5,28 @@ import ListContext from "../../context/list/listContext";
 
 const ListMovieItem = ({ listId, movie }) => {
   const listContext = useContext(ListContext);
-  const { updateMovieStatus } = listContext;
+  const { updateMovieStatus, deleteMovie } = listContext;
 
   const { name, image, status } = movie;
 
   const [refStatus, setRefStatus] = useState(status);
 
-  const updateStatus = (movieName) => {
+  const updateStatus = () => {
     setRefStatus(!refStatus);
-    updateMovieStatus(listId, movieName);
+    updateMovieStatus(listId, name);
+  };
+
+  const removeMovie = () => {
+    deleteMovie(listId, name);
   };
 
   return (
     <div className="modal-content text-dark mb-2">
       <p>{name}</p>
       <img src={image} alt="" className="movie-image sm bordered"></img>
-      <p>
+      <div className="movie-actions">
         <a
-          onClick={(e) => updateStatus(name)}
+          onClick={(e) => updateStatus()}
           className={"status " + (refStatus ? "active" : "inactive")}
         >
           {refStatus ? (
@@ -31,7 +35,10 @@ const ListMovieItem = ({ listId, movie }) => {
             <i className="fas fa-eye-slash fa-2x"></i>
           )}
         </a>
-      </p>
+        <a onClick={(e) => removeMovie()}>
+          <i className="fas fa-trash-alt fa-2x"></i>
+        </a>
+      </div>
     </div>
   );
 };

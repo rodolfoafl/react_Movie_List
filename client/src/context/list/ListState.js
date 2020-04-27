@@ -16,12 +16,15 @@ import {
   GET_LISTS,
   CLEAR_LISTS,
   SET_LOADING,
+  REMOVE_MOVIE,
+  SET_CURRENT_UPDATED,
 } from "../types";
 
 const ListState = (props) => {
   const initialState = {
     lists: null,
     current: null,
+    currentUpdated: null,
     filtered: null,
     error: null,
     loading: false,
@@ -117,11 +120,11 @@ const ListState = (props) => {
 
   //Delete Movie from List
   const deleteMovie = async (listId, movieName) => {
-    setLoading();
+    // setLoading();
     try {
-      const res = await axios.delete(`/api/lists/${listId}/${movieName}}`);
+      const res = await axios.delete(`/api/lists/${listId}/${movieName}`);
       dispatch({
-        type: UPDATE_LIST,
+        type: REMOVE_MOVIE,
         payload: res.data,
       });
     } catch (error) {
@@ -136,6 +139,14 @@ const ListState = (props) => {
   const setCurrent = (list) => {
     dispatch({
       type: SET_CURRENT,
+      payload: list,
+    });
+  };
+
+  //Set current List
+  const setCurrentUpdated = (list) => {
+    dispatch({
+      type: SET_CURRENT_UPDATED,
       payload: list,
     });
   };
@@ -204,6 +215,7 @@ const ListState = (props) => {
       value={{
         lists: state.lists,
         current: state.current,
+        currentUpdated: state.currentUpdated,
         filtered: state.filtered,
         error: state.error,
         loading: state.loading,
@@ -221,6 +233,7 @@ const ListState = (props) => {
         deleteMovie,
         updateMovieStatus,
         setLoading,
+        setCurrentUpdated,
       }}
     >
       {props.children}

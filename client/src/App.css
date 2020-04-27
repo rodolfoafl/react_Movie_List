@@ -74,6 +74,16 @@ ul {
   width: auto;
 }
 
+.movie-actions {
+  width: 50%;
+  display: flex;
+  margin: auto;
+  text-align: center;
+  align-items: center;
+  justify-content: space-evenly;
+  flex-direction: row;
+}
+
 .status.active {
   color: var(--primary-color);
 }

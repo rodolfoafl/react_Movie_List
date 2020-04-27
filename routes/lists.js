@@ -173,19 +173,17 @@ router.delete("/:listId/:movieName", async (req, res) => {
     if (!list) {
       return res.status(404).json({ msg: "List not found." });
     }
-    // console.log(req.params.movieId);
 
     //Get remove index
     const removeIndex = list.movies
       .map((item) => item.name)
       .indexOf(req.params.movieName);
-
     // console.log(removeIndex);
 
     list.movies.splice(removeIndex, 1);
 
     await list.save();
-    return res.json({ msg: "Movie removed." });
+    return res.json(list);
   } catch (error) {
     returnError(error, res);
   }

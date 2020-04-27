@@ -10,6 +10,8 @@ import {
   GET_LISTS,
   CLEAR_LISTS,
   SET_LOADING,
+  REMOVE_MOVIE,
+  SET_CURRENT_UPDATED,
 } from "../types";
 
 export default (state, action) => {
@@ -32,16 +34,27 @@ export default (state, action) => {
         ...state,
         current: payload,
       };
+    case SET_CURRENT_UPDATED:
+      return {
+        ...state,
+        currentUpdated: payload,
+      };
     case CLEAR_CURRENT:
       return {
         ...state,
         current: null,
+        currentUpdated: null,
       };
     case UPDATE_LIST:
       return {
         ...state,
         lists: state.lists.map((l) => (l._id === payload._id ? payload : l)),
         loading: false,
+      };
+    case REMOVE_MOVIE:
+      return {
+        ...state,
+        currentUpdated: payload,
       };
     case FILTER_LIST:
       return {

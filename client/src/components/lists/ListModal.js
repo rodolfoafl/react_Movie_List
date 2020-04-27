@@ -5,21 +5,13 @@ import ListContext from "../../context/list/listContext";
 
 import ListMovieItem from "./ListMovieItem";
 
-const ListModal = ({ show, onClose, list }) => {
+const ListModal = ({ show, onClose /*list*/ }) => {
   const listContext = useContext(ListContext);
-  const { getLists } = listContext;
-
-  // const alertContext = useContext(AlertContext);
-  // const { setAlert } = alertContext;
-
-  useEffect(() => {
-    if (show) {
-      console.log(`show list: ${list.name}`);
-    }
-  }, [show]);
+  const { getLists, currentUpdated, clearCurrent } = listContext;
 
   const onCloseModal = (e) => {
     onClose && onClose(e);
+    clearCurrent();
     getLists();
   };
 
@@ -41,14 +33,18 @@ const ListModal = ({ show, onClose, list }) => {
                 >
                   <i className="fas fa-times"></i>
                 </button>
-                <h3>{list.name}</h3>
+                <h3>{currentUpdated.name}</h3>
               </div>
               <div className="grid-3">
-                {list.movies === 0 ? (
+                {currentUpdated.movies === 0 ? (
                   <h3>Nenhuma Filme encontrado.</h3>
                 ) : (
-                  list.movies.map((movie) => (
-                    <ListMovieItem listId={list._id} movie={movie} />
+                  currentUpdated.movies.map((movie) => (
+                    <ListMovieItem
+                      listId={currentUpdated._id}
+                      movie={movie}
+                      key={movie._id}
+                    />
                   ))
                 )}
               </div>
