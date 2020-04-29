@@ -11,7 +11,7 @@ const Modal = ({ show, onClose, movie }) => {
   const { setAlert } = alertContext;
 
   const [selectedLists, setSelectedLists] = useState([]);
-  // const [deselectedLists, setDiselectedLists] = useState([]);
+  const [deselectedLists, setDiselectedLists] = useState([]);
 
   useEffect(() => {
     if (show) {
@@ -28,7 +28,7 @@ const Modal = ({ show, onClose, movie }) => {
     onClose && onClose(e);
 
     setSelectedLists([]);
-    // setDiselectedLists([]);
+    setDiselectedLists([]);
   };
 
   const onConfirm = (e) => {
@@ -36,20 +36,34 @@ const Modal = ({ show, onClose, movie }) => {
     // if (selectedLists.length === 0) {
     //   return alert("Selecione ao menos uma Lista!");
     // } else {
+
+    console.log(selectedLists);
+    console.log(deselectedLists);
+
+    //Add Movie to selected Lists
     if (selectedLists.length > 0) {
       let movieToAdd = {
         name: movie.Title,
         image: movie.Poster,
       };
-      selectedLists.map((list) => addMovie(list._id, movieToAdd));
+
+      // console.log(
+      //   selectedLists.filter(
+      //     (list) => !list.movies.some((m) => m.name === movieToAdd.name)
+      //   )
+      // );
+
+      selectedLists
+        .filter((list) => !list.movies.some((m) => m.name === movieToAdd.name))
+        .map((list) => addMovie(list._id, movieToAdd));
       setAlert("Filme adicionado com sucesso!", "success");
     }
 
     //Remove Movie from previously selected List
-    // if (deselectedLists.length > 0) {
-    //   deselectedLists.map((list) => deleteMovie(list, movie.Title));
-    // }
-
+    if (deselectedLists.length > 0) {
+      deselectedLists.map((list) => deleteMovie(list._id, movie.Title));
+      setAlert("Filme removido com sucesso!", "success");
+    }
     onCloseModal();
 
     // let movieToAdd = {
@@ -64,26 +78,26 @@ const Modal = ({ show, onClose, movie }) => {
 
   const onChange = (e, list) => {
     let arrSelected = selectedLists;
-    // let arrDeselected = deselectedLists;
+    let arrDeselected = deselectedLists;
 
     if (e.target.checked) {
       arrSelected.push(list);
 
-      // let index = arrDeselected.indexOf(list._id);
-      // arrDeselected.splice(index, 1);
+      let index = arrDeselected.indexOf(list._id);
+      arrDeselected.splice(index, 1);
 
-      console.log(arrSelected);
+      // console.log(arrSelected);
     } else {
       let index = arrSelected.indexOf(list._id);
       arrSelected.splice(index, 1);
 
-      // arrDeselected.push(list);
+      arrDeselected.push(list);
 
-      console.log(arrSelected);
+      // console.log(arrSelected);
     }
 
     setSelectedLists(arrSelected);
-    // setDiselectedLists(arrDeselected);
+    setDiselectedLists(arrDeselected);
   };
 
   return (
