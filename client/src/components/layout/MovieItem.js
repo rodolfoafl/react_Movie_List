@@ -1,7 +1,7 @@
 import React, { Fragment } from "react";
 
 const MovieItem = ({ movie, showModal }) => {
-  const { Poster, Title } = movie;
+  const { Poster, Title, Year } = movie;
 
   // const movieSelected = (e, id) => {
   //   e.preventDefault();
@@ -21,7 +21,11 @@ const MovieItem = ({ movie, showModal }) => {
           />
         </div>
         <div className="well-title">
-          <h3>{Title}</h3>
+          {Title.length > 32 ? (
+            <h4>{`${Title} (${Year})`}</h4>
+          ) : (
+            <h3>{`${Title} (${Year})`}</h3>
+          )}
         </div>
         <div className="well-button">
           <a

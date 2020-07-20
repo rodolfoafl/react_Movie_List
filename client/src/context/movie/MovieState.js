@@ -33,13 +33,17 @@ const MovieState = (props) => {
     setLoading();
 
     try {
-      const res = await axios.get(
+      let res = await axios.get(
         `https://www.omdbapi.com/?s=${text}&apikey=3f85b66e`
       );
 
+      let sortedByYear = res.data.Search.sort((a, b) => a.Year - b.Year);
+      let filtered = sortedByYear.filter((movie) => movie.Type === "movie");
+
       dispatch({
         type: SEARCH_MOVIES,
-        payload: res.data.Search.filter((movie) => movie.Type === "movie"),
+        // payload: res.data.Search.filter((movie) => movie.Type === "movie"),
+        payload: filtered,
       });
     } catch (error) {
       dispatch({
