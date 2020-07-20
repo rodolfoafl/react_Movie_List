@@ -93,15 +93,15 @@ ul {
 
 .well-title {
   display: flex;
-  height: 15%;
+  height: 10%;
   text-align: center;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
   margin-top: 0.5rem;
 }
 .well-button {
   display: flex;
-  height: 15%;
+  height: 12.5%;
   text-align: center;
   justify-content: center;
   align-items: center;
@@ -626,7 +626,7 @@ input[type="checkbox"] {
 } */
 
 /* Mobile Styles */
-@media (max-width: 700px) {
+@media (max-width: 860px) {
   .hide-sm {
     display: none;
   }
@@ -675,5 +675,9 @@ input[type="checkbox"] {
   .navbar ul {
     text-align: center;
     justify-content: center;
+  }
+
+  .well {
+    margin-top: 1rem;
   }
 }

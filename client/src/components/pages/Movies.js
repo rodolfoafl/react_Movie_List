@@ -1,14 +1,18 @@
 import React, { Fragment, useEffect, useState, useContext } from "react";
-import axios from "axios";
 
 import MovieItem from "../layout/MovieItem";
 import Modal from "../layout/Modal";
+import Spinner from "../layout/Spinner";
 
 import ListContext from "../../context/list/listContext";
+import MovieContext from "../../context/movie/movieContext";
 
 const Movies = () => {
   const listContext = useContext(ListContext);
   const { getLists } = listContext;
+
+  const movieContext = useContext(MovieContext);
+  const { searchMovies, loading, movies } = movieContext;
 
   let listMovies = null;
   useEffect(() => {
@@ -18,8 +22,6 @@ const Movies = () => {
     //eslist-disable-next-line
   }, []);
 
-  const [movies, setMovies] = useState(null);
-
   const [show, setShow] = useState(false);
   const showModal = (movie = null) => {
     setShow(!show);
@@ -28,21 +30,11 @@ const Movies = () => {
 
   const [currentMovie, setCurrentMovie] = useState(null);
 
-  const getMovies = (text) => {
-    axios
-      .get(`https://www.omdbapi.com/?s=${text}&apikey=3f85b66e`)
-      .then((res) => {
-        setMovies(res.data.Search.filter((m) => m.Type === "movie"));
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
-
   const onSubmit = (e) => {
     e.preventDefault();
     let inputValue = document.querySelector("#searchText").value;
-    getMovies(inputValue);
+    // getMovies(inputValue);
+    searchMovies(inputValue);
   };
 
   return (
@@ -67,16 +59,24 @@ const Movies = () => {
       </div>
       <Modal show={show} onClose={showModal} movie={currentMovie} />
       <div className="container my-1">
-        <div id="movies" className="grid-3">
-          {movies !== null &&
-            movies.map((movie) => (
-              <MovieItem
-                key={movie.imdbID}
-                movie={movie}
-                showModal={showModal}
-              />
-            ))}
-        </div>
+        {/* <div id="movies" className="grid-3"> */}
+        {loading ? (
+          <div className="text-center">
+            <Spinner />
+          </div>
+        ) : (
+          <div id="movies" className="grid-3">
+            {movies !== null &&
+              movies.map((movie) => (
+                <MovieItem
+                  key={movie.imdbID}
+                  movie={movie}
+                  showModal={showModal}
+                />
+              ))}
+          </div>
+        )}
+        {/* </div> */}
       </div>
     </Fragment>
   );

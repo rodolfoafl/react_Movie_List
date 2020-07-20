@@ -13,3 +13,6 @@ export const GET_LISTS = "GET_LISTS";
 export const CLEAR_LISTS = "CLEAR_LISTS";
 export const SET_LOADING = "SET_LOADING";
 export const REMOVE_MOVIE = "REMOVE_MOVIE";
+
+export const SEARCH_MOVIES = "SEARCH_MOVIES";
+export const MOVIE_ERROR = "MOVIE_ERROR";
