@@ -26,7 +26,7 @@ export default (state, action) => {
     case DELETE_LIST:
       return {
         ...state,
-        lists: state.lists.filter((l) => l._id !== payload),
+        lists: state.lists.filter((list) => list._id !== payload),
         loading: false,
       };
     case SET_CURRENT:
@@ -48,7 +48,9 @@ export default (state, action) => {
     case UPDATE_LIST:
       return {
         ...state,
-        lists: state.lists.map((l) => (l._id === payload._id ? payload : l)),
+        lists: state.lists.map((list) =>
+          list._id === payload._id ? payload : list
+        ),
         loading: false,
       };
     case REMOVE_MOVIE:
@@ -59,9 +61,9 @@ export default (state, action) => {
     case FILTER_LIST:
       return {
         ...state,
-        filtered: state.lists.filter((l) => {
+        filtered: state.lists.filter((list) => {
           const regex = new RegExp(`${payload}`, "gi");
-          return l.name.match(regex);
+          return list.name.match(regex);
         }),
         loading: false,
       };

@@ -14,11 +14,11 @@ const MovieState = (props) => {
 
   const [state, dispatch] = useReducer(movieReducer, initialState);
 
-  const config = {
-    headers: {
-      "Content-Type": "application/json",
-    },
-  };
+  // const config = {
+  //   headers: {
+  //     "Content-Type": "application/json",
+  //   },
+  // };
 
   const setLoading = () => {
     dispatch({

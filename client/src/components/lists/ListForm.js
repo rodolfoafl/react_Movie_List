@@ -12,10 +12,9 @@ const ListForm = () => {
 
   const [list, setList] = useState({
     name: "",
-    movies: [],
   });
 
-  const { name, movies } = list;
+  const { name } = list;
 
   useEffect(() => {
     if (current !== null) {

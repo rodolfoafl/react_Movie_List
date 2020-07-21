@@ -18,6 +18,7 @@ const MovieItem = ({ movie, showModal }) => {
           <img
             src={Poster !== "N/A" ? Poster : defaultPoster}
             className="well-image"
+            alt={`Poster do filme ${Title}`}
           />
         </div>
         <div className="well-title">
@@ -32,7 +33,7 @@ const MovieItem = ({ movie, showModal }) => {
             // onClick={(e) => movieSelected(e, imdbID)}
             onClick={() => showModal(movie)}
             className="btn btn-primary"
-            href="#"
+            href="#!"
           >
             Adicionar à lista
           </a>

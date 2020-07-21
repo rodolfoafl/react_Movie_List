@@ -14,12 +14,12 @@ const Movies = () => {
   const movieContext = useContext(MovieContext);
   const { searchMovies, loading, movies } = movieContext;
 
-  let listMovies = null;
+  // let listMovies = null;
   useEffect(() => {
     getLists();
 
-    listMovies = document.querySelector("#movies");
-    //eslist-disable-next-line
+    // listMovies = document.querySelector("#movies");
+    //eslint-disable-next-line
   }, []);
 
   const [show, setShow] = useState(false);

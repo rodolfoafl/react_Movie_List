@@ -13,7 +13,7 @@ const Lists = () => {
 
   useEffect(() => {
     getLists();
-    //eslist-disable-next-line
+    //eslint-disable-next-line
   }, []);
 
   // const [currentList, setCurrentList] = useState(null);

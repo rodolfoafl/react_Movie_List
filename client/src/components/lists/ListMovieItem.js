@@ -7,7 +7,7 @@ const ListMovieItem = ({ listId, movie }) => {
   const listContext = useContext(ListContext);
   const { updateMovieStatus, deleteMovie } = listContext;
 
-  const { name, image, status } = movie;
+  const { name, image, year, status } = movie;
 
   const [refStatus, setRefStatus] = useState(status);
 
@@ -22,10 +22,11 @@ const ListMovieItem = ({ listId, movie }) => {
 
   return (
     <div className="modal-content text-dark mb-2">
-      <p>{name}</p>
+      <p>{name + " " + (year !== undefined ? `(${year})` : "")}</p>
       <img src={image} alt="" className="movie-image sm bordered"></img>
       <div className="movie-actions">
         <a
+          href="#!"
           onClick={(e) => updateStatus()}
           className={"status " + (refStatus ? "active" : "inactive")}
         >
@@ -35,7 +36,7 @@ const ListMovieItem = ({ listId, movie }) => {
             <i className="fas fa-eye-slash fa-2x"></i>
           )}
         </a>
-        <a onClick={(e) => removeMovie()}>
+        <a href="#!" onClick={(e) => removeMovie()}>
           <i className="fas fa-trash-alt fa-2x"></i>
         </a>
       </div>

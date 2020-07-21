@@ -14,9 +14,9 @@ const ListItem = ({ list, showModal }) => {
     deleteList(_id);
   };
 
-  const onDisplayList = () => {
-    movies.map((m) => console.log(m.name));
-  };
+  // const onDisplayList = () => {
+  //   movies.map((m) => console.log(m.name));
+  // };
 
   return (
     <div className="card bg-primary">

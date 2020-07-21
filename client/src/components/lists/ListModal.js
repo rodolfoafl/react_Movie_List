@@ -1,6 +1,5 @@
-import React, { Fragment, useContext, useState, useEffect } from "react";
+import React, { Fragment, useContext } from "react";
 
-// import AlertContext from "../../context/alert/alertContext";
 import ListContext from "../../context/list/listContext";
 
 import ListMovieItem from "./ListMovieItem";
@@ -23,8 +22,6 @@ const ListModal = ({ show, onClose /*list*/ }) => {
             <div className="modal text-dark" id="modal">
               <div>
                 <button
-                  // className="toggle-button disabled mx-1"
-
                   className="toggle-button danger m"
                   onClick={(e) => onCloseModal(e)}
                   style={{
@@ -39,13 +36,15 @@ const ListModal = ({ show, onClose /*list*/ }) => {
                 {currentUpdated.movies === 0 ? (
                   <h3>Nenhuma Filme encontrado.</h3>
                 ) : (
-                  currentUpdated.movies.map((movie) => (
-                    <ListMovieItem
-                      listId={currentUpdated._id}
-                      movie={movie}
-                      key={movie._id}
-                    />
-                  ))
+                  currentUpdated.movies
+                    .sort((a, b) => a.year - b.year)
+                    .map((movie) => (
+                      <ListMovieItem
+                        listId={currentUpdated._id}
+                        movie={movie}
+                        key={movie._id}
+                      />
+                    ))
                 )}
               </div>
             </div>

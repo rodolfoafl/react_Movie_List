@@ -15,6 +15,9 @@ const ListSchema = mongoose.Schema({
         type: String,
         // required: true,
       },
+      year: {
+        type: String,
+      },
       status: {
         type: Boolean,
         default: false,

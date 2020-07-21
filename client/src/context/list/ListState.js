@@ -232,7 +232,6 @@ const ListState = (props) => {
         addMovie,
         deleteMovie,
         updateMovieStatus,
-        setLoading,
         setCurrentUpdated,
       }}
     >

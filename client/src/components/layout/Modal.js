@@ -5,7 +5,7 @@ import AlertContext from "../../context/alert/alertContext";
 
 const Modal = ({ show, onClose, movie }) => {
   const listContext = useContext(ListContext);
-  const { lists, loading, addMovie, deleteMovie } = listContext;
+  const { lists, addMovie, deleteMovie } = listContext;
 
   const alertContext = useContext(AlertContext);
   const { setAlert } = alertContext;
@@ -22,6 +22,7 @@ const Modal = ({ show, onClose, movie }) => {
         setSelectedLists(selLists);
       }
     }
+    //eslint-disable-next-line
   }, [show]);
 
   const onCloseModal = (e) => {
@@ -45,6 +46,7 @@ const Modal = ({ show, onClose, movie }) => {
       let movieToAdd = {
         name: movie.Title,
         image: movie.Poster,
+        year: movie.Year,
       };
 
       // console.log(

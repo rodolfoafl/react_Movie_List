@@ -86,12 +86,13 @@ router.put("/:id", async (req, res) => {
 // @desc    Add list movie
 // @access  Public
 router.put("/addMovie/:listId", async (req, res) => {
-  const { name, image } = req.body;
+  const { name, image, year } = req.body;
   // console.log(req.body[0]);
 
   const newMovie = {
     name: name,
     image: image,
+    year: year,
   };
 
   // console.log(newMovie);
