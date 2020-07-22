@@ -50,7 +50,7 @@ const Movies = () => {
             type="text"
             className="form-control"
             id="searchText"
-            placeholder="Filme..."
+            placeholder="Filme (nome em inglês)"
           ></input>
           <button onSubmit={(e) => onSubmit(e)}>
             <i className="fas fa-search" />
