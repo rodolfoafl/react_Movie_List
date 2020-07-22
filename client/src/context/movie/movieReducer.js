@@ -8,6 +8,7 @@ export default (state, action) => {
         ...state,
         movies: payload,
         loading: false,
+        error: null,
       };
     case SET_LOADING:
       return {

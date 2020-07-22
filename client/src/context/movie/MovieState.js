@@ -10,6 +10,7 @@ const MovieState = (props) => {
   const initialState = {
     movies: null,
     loading: false,
+    error: null,
   };
 
   const [state, dispatch] = useReducer(movieReducer, initialState);
@@ -37,14 +38,23 @@ const MovieState = (props) => {
         `https://www.omdbapi.com/?s=${text}&apikey=3f85b66e`
       );
 
-      let sortedByYear = res.data.Search.sort((a, b) => a.Year - b.Year);
-      let filtered = sortedByYear.filter((movie) => movie.Type === "movie");
+      // console.log(res.data);
 
-      dispatch({
-        type: SEARCH_MOVIES,
-        // payload: res.data.Search.filter((movie) => movie.Type === "movie"),
-        payload: filtered,
-      });
+      if (res.data.Error) {
+        dispatch({
+          type: MOVIE_ERROR,
+          payload: res.data.Error,
+        });
+      } else {
+        let sortedByYear = res.data.Search.sort((a, b) => a.Year - b.Year);
+        let filtered = sortedByYear.filter((movie) => movie.Type === "movie");
+
+        dispatch({
+          type: SEARCH_MOVIES,
+          // payload: res.data.Search.filter((movie) => movie.Type === "movie"),
+          payload: filtered,
+        });
+      }
     } catch (error) {
       dispatch({
         type: MOVIE_ERROR,
