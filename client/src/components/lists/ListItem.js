@@ -21,7 +21,17 @@ const ListItem = ({ list, showModal }) => {
   return (
     <div className="card bg-primary">
       <h3 className="text-dark text-left">{name}</h3>
-      <h3 className="text-dark text-center my-1">{`Contém ${movies.length} filmes`}</h3>
+      {/* <h3 className="text-dark text-center my-1">{`Contém ${
+        movies.length
+      } filmes (${
+        movies.filter((movie) => movie.status === true).length
+      } assistidos)`}</h3> */}
+      <h3 className="text-dark text-center my-1">{`Contém ${
+        movies.length
+      } filmes (${Math.round(
+        (100 * movies.filter((movie) => movie.status === true).length) /
+          movies.length
+      )}% assistidos)`}</h3>
       <p>
         <button
           className="btn btn-success btn-sm"
