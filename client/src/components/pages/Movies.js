@@ -12,7 +12,7 @@ const Movies = () => {
   const { getLists } = listContext;
 
   const movieContext = useContext(MovieContext);
-  const { searchMovies, loading, movies } = movieContext;
+  const { searchMovies, loading, movies, error } = movieContext;
 
   // let listMovies = null;
   useEffect(() => {
@@ -20,7 +20,7 @@ const Movies = () => {
 
     // listMovies = document.querySelector("#movies");
     //eslint-disable-next-line
-  }, []);
+  }, [error]);
 
   const [show, setShow] = useState(false);
   const showModal = (movie = null) => {
@@ -40,7 +40,7 @@ const Movies = () => {
   return (
     <Fragment>
       <div className="container">
-        <h3 className="text-center">Procurar Filmes</h3>
+        <h2 className="text-center">Procurar Filmes</h2>
         <form
           id="searchForm"
           onSubmit={(e) => onSubmit(e)}
@@ -64,6 +64,8 @@ const Movies = () => {
           <div className="text-center">
             <Spinner />
           </div>
+        ) : error !== null ? (
+          <h3>Nenhum filme encontrado.</h3>
         ) : (
           <div id="movies" className="grid-3">
             {movies !== null &&
