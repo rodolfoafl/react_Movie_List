@@ -558,6 +558,14 @@ table th {
   padding: 1rem;
   margin: 0;
 }
+.modal-content-title {
+  display: flex;
+  height: 3.5rem;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 0.5rem;
+}
 .modal-content {
   font-weight: bold;
   padding: 0.5rem 0;

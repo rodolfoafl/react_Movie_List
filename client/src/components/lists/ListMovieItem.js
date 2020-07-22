@@ -22,7 +22,9 @@ const ListMovieItem = ({ listId, movie }) => {
 
   return (
     <div className="modal-content text-dark mb-2">
-      <p>{name + " " + (year !== undefined ? `(${year})` : "")}</p>
+      <div className="modal-content-title">
+        {name + " " + (year !== undefined ? `(${year})` : "")}
+      </div>
       <img src={image} alt="" className="movie-image sm bordered"></img>
       <div className="movie-actions">
         <a
