@@ -1,3 +1,0 @@
-{
-  "mongoURI": "mongodb+srv://rodolfoafl:SMDBraf1992leal@cluster0-vy2vh.mongodb.net/movies?retryWrites=true&w=majority"
-}
