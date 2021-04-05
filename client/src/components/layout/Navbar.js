@@ -33,7 +33,7 @@ Navbar.propType = {
 
 Navbar.defaultProps = {
   // title: "B&R Filmes",
-  title: "App Filmes",
+  title: "B&R Filmes",
   icon: "fas fa-film",
 };
 
