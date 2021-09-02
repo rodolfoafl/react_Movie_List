@@ -2,8 +2,11 @@
 
 /* Global Styles */
 :root {
-  --primary-color: aquamarine;
-  --dark-color: #333333;
+  --primary-color: #7fffd4;
+  --primary-color-light: #a5ffe0;
+  --primary-color-dark: #58b294;
+  --dark-color: #333;
+  --dark-color-light: #999999;
   --light-color: #fff;
   --danger-color: #dc3545;
   --success-color: #28a745;
@@ -62,6 +65,12 @@ ul {
 
 .image-container {
   height: 70%;
+}
+
+.image-container a:hover {
+  outline: none;
+  background: none;
+  box-shadow: 0px -10px 60px 1px var(--primary-color-light);
 }
 
 .well-image {
@@ -339,6 +348,24 @@ ul {
   color: var(--dark-color);
 }
 
+.btn-primary-light,
+.bg-primary-light,
+.badge-primary-light,
+.alert-primary-light {
+  background: var(--primary-color-light);
+  /* color: #fff; */
+  color: var(--dark-color);
+}
+
+.btn-primary-dark,
+.bg-primary-dark,
+.badge-primary-dark,
+.alert-primary-dark {
+  background: var(--primary-color-dark);
+  /* color: #fff; */
+  color: var(--dark-color);
+}
+
 .btn-light,
 .bg-light,
 .badge-light,
@@ -410,21 +437,33 @@ input {
   padding: 1rem 0;
   text-align: center;
 }
+
 .form-search input[type="text"] {
   display: block;
   width: 90%;
-  padding: 0.4rem;
+  height: 40px;
+  padding: 0.4rem 0.8rem;
   font-size: 1.2rem;
-  border: 1px solid #ccc;
+  border-top: 1px solid var(--primary-color);
+  border-bottom: 1px solid var(--primary-color);
+  border-left: 1px solid var(--primary-color);
+  border-top-left-radius: 25px;
+  border-bottom-left-radius: 25px;
+  outline: none;
 }
+
 .form-search button {
   /* display: block; */
   background: none;
   color: var(--primary-color);
   width: 10%;
+  height: 40px;
   padding: 0.4rem;
   font-size: 1rem;
-  border: 1px solid var(--primary-color);
+  border-top: 1px solid var(--primary-color);
+  border-bottom: 1px solid var(--primary-color);
+  border-top-right-radius: 25px;
+  border-bottom-right-radius: 25px;
   cursor: pointer;
 }
 .form-search button:hover {
@@ -524,8 +563,7 @@ table th {
 
 .navbar a:hover {
   background: var(--primary-color);
-  color: var(--light-color);
-  /* color: #fff; */
+  color: var(--dark-color-light);
 }
 
 .navbar .welcome span {
